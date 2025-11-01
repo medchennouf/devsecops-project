@@ -5,7 +5,7 @@ pipeline {
         DOCKER_REGISTRY = 'mohamed284'
         APP_NAME = 'devops-app'
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
@@ -14,19 +14,19 @@ pipeline {
                 credentialsId: 'jenkins-github'
             }
         }
-        
+
         stage('Build') {
             steps {
                 sh 'mvn clean compile'
             }
         }
-        
+
         stage('Test') {
             steps {
                 sh 'mvn test'
             }
         }
-        
+
         stage('Build Docker Image') {
             steps {
                 script {
@@ -34,7 +34,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
