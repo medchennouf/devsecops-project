@@ -1,0 +1,93 @@
+# security-policies.yaml
+security_gates:
+  sast:
+    enabled: true
+    max_critical: 0
+    max_high: 3
+    max_medium: 10
+    quality_gate: true
+    tools:
+      - sonarqube
+      - semgrep
+
+  sca:
+    enabled: true
+    max_critical_cves: 0
+    max_high_cves: 2
+    block_unknown_licenses: true
+    auto_update: true
+    tools:
+      - trivy
+      - dependency-check
+
+  dast:
+    enabled: true
+    max_high_vulns: 1
+    max_medium_vulns: 5
+    scan_timeout_minutes: 60
+    tools:
+      - zap
+      - nuclei
+
+  container_security:
+    enabled: true
+    max_critical_vulns: 0
+    max_high_vulns: 2
+    root_user_allowed: false
+    tools:
+      - trivy
+      - docker-bench
+
+  infrastructure:
+    enabled: true
+    cloud_compliance:
+      - CIS-Kubernetes-Benchmark
+      - PCI-DSS
+    allowed_regions:
+      - eu-west-3
+    tools:
+      - checkov
+      - kube-bench
+
+compliance_standards:
+  - name: OWASP-ASVS
+    version: "4.0"
+    level: 2
+    required: true
+
+  - name: PCI-DSS
+    version: "4.0"
+    level: basic
+    required: false
+
+  - name: GDPR
+    version: "2018"
+    required: true
+
+risk_assessment:
+  thresholds:
+    critical_risk: 0.8
+    high_risk: 0.6
+    medium_risk: 0.4
+    low_risk: 0.2
+
+  factors:
+    - exposure: public
+    - data_sensitivity: high
+    - business_impact: critical
+
+approval_workflow:
+  automatic_approval:
+    security_score: 90
+    risk_level: low
+
+  manual_approval:
+    required_for:
+      - production_deployment
+      - critical_vulnerability_waiver
+      - compliance_exception
+
+  approvers:
+    - security_lead
+    - devops_lead
+    - product_owner
