@@ -1,0 +1,15 @@
+#!/bin/bash
+echo "🎯 FORCER UN BUILD MANUEL POUR LA DÉMO"
+echo "======================================"
+
+echo "1. Allez sur Jenkins : http://localhost:8080"
+echo "2. Cliquez sur 'devsecops-pipeline'"
+echo "3. Cliquez sur 'Build Now' (à gauche)"
+echo "4. Observez le build qui démarre !"
+echo ""
+echo "📊 CE QUE VOUS DEVRIEZ VOIR :"
+echo "   - Build History → Nouveau build #1"
+echo "   - Console Output → Pipeline qui s'exécute"
+echo "   - Étapes de sécurité en cours"
+echo ""
+echo "🎉 C'est tout aussi impressionnant pour la démo !"
